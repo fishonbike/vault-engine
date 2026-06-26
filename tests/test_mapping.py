@@ -2,7 +2,7 @@ import unittest
 
 from vaultengine import config as cfg
 from vaultengine.mapping import Vault, is_token_like
-from vaultengine.spans import (CAT_DATE, CAT_ID, CAT_ORG, CAT_PERSON, Span)
+from vaultengine.spans import (CAT_DATE, CAT_ORG, CAT_PERSON, Span)
 
 
 class MappingTests(unittest.TestCase):
@@ -92,6 +92,25 @@ class MappingTests(unittest.TestCase):
         data = v.to_map()
         v2 = Vault.from_map(data)
         self.assertEqual(v2.rehydrate_text(v.apply("王五在此")), "王五在此")
+
+
+    def test_ascii_word_boundary_guards(self):
+        v = Vault()
+        pairs = v.assign([
+            Span("Jack", CAT_PERSON, source="llm"),
+            Span("张三", CAT_PERSON, source="llm"),
+        ])
+        text = "Jack went to jackpot with 张三, hijack, and 张三李四."
+        out = v.apply(text, pairs)
+        # Jack -> P-n1 (assuming it's P-n1)
+        # jackpot -> unchanged (partial hit prevented)
+        # hijack -> unchanged (partial hit prevented)
+        # 张三 -> P-n2
+        # 张三李四 -> P-n2李四 (CJK has no word boundary check)
+        self.assertNotIn("Jack went", out)
+        self.assertIn("jackpot", out)
+        self.assertIn("hijack", out)
+        self.assertIn("P-n2李四", out)
 
 
 if __name__ == "__main__":
