@@ -136,7 +136,19 @@ class Vault:
         pairs = pairs if pairs is not None else self.replacement_pairs()
         for surface in sorted(pairs, key=len, reverse=True):
             if surface and surface in text:
-                text = text.replace(surface, pairs[surface])
+                token = pairs[surface]
+                # Check if first and last characters are ASCII alphanumeric or underscore
+                first = surface[0]
+                last = surface[-1]
+                is_ascii_word = (
+                    ("a" <= first <= "z" or "A" <= first <= "Z" or "0" <= first <= "9" or first == "_") and
+                    ("a" <= last <= "z" or "A" <= last <= "Z" or "0" <= last <= "9" or last == "_")
+                )
+                if is_ascii_word:
+                    pattern = re.compile(r"\b" + re.escape(surface) + r"\b")
+                    text = pattern.sub(token, text)
+                else:
+                    text = text.replace(surface, token)
         return text
 
     def replacement_pairs(self) -> Dict[str, str]:
