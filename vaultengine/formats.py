@@ -29,8 +29,12 @@ def detect_format(text: str) -> str:
     return MARKDOWN if (text and _FENCE in text) else PLAIN
 
 
-def _split_fences(s: str) -> List[Segment]:
-    """Keep fenced ``` blocks verbatim; everything else is scrubbable."""
+def _split_fences(s: str, scrub_fenced: bool = False) -> List[Segment]:
+    """Keep fenced ``` blocks verbatim; everything else is scrubbable.
+
+    If scrub_fenced is True, the code block contents are scrubbed,
+    while the fence markers and language specifiers are kept.
+    """
     out: List[Segment] = []
     i = 0
     while True:
@@ -46,14 +50,26 @@ def _split_fences(s: str) -> List[Segment]:
             out.append(("keep", s[start:]))
             break
         end += 3
-        out.append(("keep", s[start:end]))
+
+        if scrub_fenced:
+            # Try to find the newline terminating the opening fence
+            newline_idx = s.find("\n", start, end)
+            if newline_idx != -1 and newline_idx + 1 < end - 3:
+                out.append(("keep", s[start : newline_idx + 1]))
+                out.append(("scrub", s[newline_idx + 1 : end - 3]))
+                out.append(("keep", s[end - 3 : end]))
+            else:
+                out.append(("keep", s[start:end]))
+        else:
+            out.append(("keep", s[start:end]))
+
         i = end
     return out
 
 
-def segment(text: str, fmt: str = AUTO) -> List[Segment]:
+def segment(text: str, fmt: str = AUTO, scrub_fenced: bool = False) -> List[Segment]:
     if fmt == AUTO:
         fmt = detect_format(text)
     if fmt == MARKDOWN:
-        return _split_fences(text)
+        return _split_fences(text, scrub_fenced=scrub_fenced)
     return [("scrub", text)]
