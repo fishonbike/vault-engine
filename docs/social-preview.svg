@@ -1,0 +1,21 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>vault-engine social preview</title>
+<desc>vault-engine — a local-LLM privacy layer before cloud AI: private text with real names becomes tokens the cloud sees.</desc>
+<style>.f{font-family:'SF Pro Display','Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif}.m{font-family:'SF Mono','Menlo','Consolas','PingFang SC',monospace}</style>
+<rect x="0" y="0" width="1280" height="640" fill="#0d1117"/>
+<rect x="0" y="0" width="1280" height="8" fill="#58a6ff"/>
+<text class="f" x="80" y="158" font-size="86" font-weight="700" fill="#e6edf3">vault<tspan fill="#58a6ff">-engine</tspan></text>
+<text class="f" x="82" y="216" font-size="36" fill="#8b949e">A local-LLM privacy layer before cloud AI</text>
+<rect x="80" y="296" width="470" height="196" rx="14" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text class="f" x="106" y="338" font-size="22" fill="#8b949e">your notes — private</text>
+<text class="m" x="106" y="390" font-size="29" fill="#ff7b72">林若曦 · 星澜资本 · 深圳</text>
+<text class="m" x="106" y="436" font-size="29" fill="#ff7b72">lin@xinglan.example</text>
+<text class="f" x="566" y="372" font-size="24" fill="#8b949e">local LLM</text>
+<text class="f" x="582" y="418" font-size="52" fill="#58a6ff">→</text>
+<rect x="730" y="296" width="470" height="196" rx="14" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<text class="f" x="756" y="338" font-size="22" fill="#8b949e">what the cloud sees</text>
+<text class="m" x="756" y="390" font-size="29" fill="#3fb950">P-n1 · ORG_1 · LOC_1</text>
+<text class="m" x="756" y="436" font-size="29" fill="#3fb950">EMAIL_1</text>
+<text class="f" x="80" y="566" font-size="27" fill="#8b949e">Ollama + Qwen · zero deps · reversible local map · 中文 · Apache-2.0</text>
+<text class="m" x="80" y="606" font-size="26" fill="#58a6ff">github.com/fishonbike/vault-engine</text>
+</svg>

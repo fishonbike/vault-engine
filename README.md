@@ -8,6 +8,9 @@ and quasi-identifiers, replaces them with stable tokens, and keeps the only
 key-back-to-reality on disk. When the cloud answers in tokens, you put the real
 identities back locally.
 
+*Best-effort de-identification — not legal anonymization or a privacy guarantee.
+Review high-risk material before sending.*
+
 > 出云前做身份脱敏：本地模型检测 → 代号化 → 云端用代号分析 → 本地还原真身。
 > 检测**不出本机**，身份映射**只存本地**，大模型**一行换**。零依赖。
 
