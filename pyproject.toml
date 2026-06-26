@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vault-engine"
+description = "Identity de-identification for cloud-LLM hand-off: local detection, consistent pseudonyms, a reversible local map, and a swappable model backend."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "fishonbike" }]
+keywords = [
+    "privacy", "pii", "de-identification", "anonymization", "redaction",
+    "pseudonymization", "llm", "ollama", "qwen", "egress",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Topic :: Text Processing :: Filters",
+]
+dependencies = []  # stdlib only — by design
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Source = "https://github.com/fishonbike/vault-engine"
+Issues = "https://github.com/fishonbike/vault-engine/issues"
+
+[project.scripts]
+vault-engine = "vaultengine.cli:main"
+
+[tool.setuptools]
+packages = ["vaultengine", "vaultengine.providers"]
+
+[tool.setuptools.dynamic]
+version = { attr = "vaultengine.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

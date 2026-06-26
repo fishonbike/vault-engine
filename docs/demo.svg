@@ -1,0 +1,41 @@
+<svg width="680" height="386" viewBox="0 0 680 386" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>vault-engine bilingual terminal demo</title>
+<desc>A terminal animation showing an English sentence and a Chinese sentence both scrubbed into placeholder tokens before going to a cloud model, then restored locally.</desc>
+<style>
+.term{font-family:'SF Mono','Menlo','Consolas','Roboto Mono','PingFang SC','Microsoft YaHei',monospace;font-size:14px}
+.grp{opacity:0}
+.g1{animation:g1 15s linear infinite}.g2{animation:g2 15s linear infinite}.g3{animation:g3 15s linear infinite}
+.g4{animation:g4 15s linear infinite}.g5{animation:g5 15s linear infinite}.g6{animation:g6 15s linear infinite}
+@keyframes g1{0%{opacity:0}2%{opacity:0}5%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes g2{0%{opacity:0}13%{opacity:0}16%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes g3{0%{opacity:0}25%{opacity:0}28%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes g4{0%{opacity:0}43%{opacity:0}46%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes g5{0%{opacity:0}61%{opacity:0}64%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes g6{0%{opacity:0}74%{opacity:0}77%{opacity:1}96%{opacity:1}100%{opacity:0}}
+@keyframes blink{50%{opacity:0}}
+.cur{animation:blink 1.1s step-end infinite}
+</style>
+<rect x="24" y="20" width="632" height="350" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+<circle cx="44" cy="38" r="6" fill="#ff5f56"/>
+<circle cx="64" cy="38" r="6" fill="#ffbd2e"/>
+<circle cx="84" cy="38" r="6" fill="#27c93f"/>
+<text class="term" x="116" y="43" fill="#8b949e" font-size="12px">vault-engine</text>
+<line x1="24" y1="56" x2="656" y2="56" stroke="#30363d" stroke-width="1"/>
+<g class="term">
+<g class="grp g1"><text x="44" y="88" fill="#58a6ff">$ <tspan fill="#e6edf3">vault-engine scrub notes.txt -o safe.txt</tspan></text></g>
+<g class="grp g2"><text x="44" y="114" fill="#3fb950">✓ <tspan fill="#8b949e">safe.txt   ✓ reverse map → safe.txt.map.json (local only)</tspan></text></g>
+<g class="grp g3">
+<text x="44" y="150" fill="#8b949e" font-size="12px">notes.txt — private</text>
+<text x="44" y="174" fill="#ff7b72">Marcus Lin, partner at Benchmark Capital — m.lin@bench.example</text>
+<text x="44" y="196" fill="#ff7b72">林若曦是星澜资本合伙人，在深圳见了陈大壮  lin@xinglan.example</text>
+</g>
+<g class="grp g4">
+<text x="44" y="232" fill="#8b949e" font-size="12px">safe.txt — all the cloud sees</text>
+<text x="44" y="256" fill="#3fb950">P-n1, partner at ORG_1 — EMAIL_1</text>
+<text x="44" y="278" fill="#3fb950">P-n2 是 ORG_2 合伙人，在 LOC_1 见了 P-n3  EMAIL_2</text>
+</g>
+<g class="grp g5"><text x="44" y="314" fill="#58a6ff">$ <tspan fill="#e6edf3">vault-engine rehydrate reply.json --map safe.txt.map.json</tspan></text></g>
+<g class="grp g6"><text x="44" y="338" fill="#bc8cff">P-n1 → Marcus Lin   P-n2 → 林若曦   <tspan fill="#8b949e">← restored locally</tspan></text></g>
+</g>
+<rect class="cur" x="44" y="354" width="9" height="3" fill="#8b949e"/>
+</svg>

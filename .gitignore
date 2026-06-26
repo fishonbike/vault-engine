@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+
+# ─────────────────────────────────────────────────────────────────────────
+# SECURITY — never commit these
+# A reverse map IS the identity it hides. Keep it local, off the cloud, off git.
+*.map.json
+# Scrubbed / rehydrated artifacts are derivative working files.
+*.scrubbed.*
+examples/out/
