@@ -95,6 +95,17 @@ class CliTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertNotIn("13900001111", out)
 
+    def test_scrub_fenced_cli(self):
+        infile = os.path.join(self.tmp.name, "in_fenced.txt")
+        with open(infile, "w", encoding="utf-8") as fh:
+            fh.write("Hello 张三\n```json\nzhang.san@example.com\n```\nGoodbye")
+        out = os.path.join(self.tmp.name, "out_fenced.txt")
+        code, _, _ = run(["scrub", infile, "-o", out, "--no-llm", "--format", "markdown", "--scrub-fenced"])
+        self.assertEqual(code, 0)
+        scrubbed = read(out)
+        self.assertNotIn("zhang.san@example.com", scrubbed)
+        self.assertIn("```json", scrubbed)
+
 
 if __name__ == "__main__":
     unittest.main()

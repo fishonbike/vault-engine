@@ -34,6 +34,7 @@ class Config:
 
     use_llm: bool = True        # False => deterministic detectors only (offline)
     critic: bool = True         # residual-risk second LLM pass
+    scrub_fenced: bool = False  # also scrub inside fenced markdown code blocks
 
     num_ctx: int = 8192         # context window hint passed to local models
     timeout: int = 300          # seconds per model call
@@ -80,7 +81,7 @@ class Config:
     @classmethod
     def _from_env(cls) -> Dict[str, Any]:
         names = cls._field_names()
-        bool_fields = {"use_llm", "critic"}
+        bool_fields = {"use_llm", "critic", "scrub_fenced"}
         int_fields = {"num_ctx", "timeout", "chunk_chars", "chunk_overlap"}
         out: Dict[str, Any] = {}
         for name in names:

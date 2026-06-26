@@ -40,5 +40,18 @@ class FormatTests(unittest.TestCase):
         self.assertTrue(any(k == "keep" and "```" in c for k, c in segs))
 
 
+    def test_fenced_block_contents_scrubbed_when_scrub_fenced_true(self):
+        text = "Hello 张三\n```json\nLi Si\n```\nGoodbye"
+        segs = formats.segment(text, formats.MARKDOWN, scrub_fenced=True)
+        expected = [
+            ("scrub", "Hello 张三\n"),
+            ("keep", "```json\n"),
+            ("scrub", "Li Si\n"),
+            ("keep", "```"),
+            ("scrub", "\nGoodbye"),
+        ]
+        self.assertEqual(segs, expected)
+
+
 if __name__ == "__main__":
     unittest.main()

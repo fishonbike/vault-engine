@@ -61,6 +61,7 @@ def _config_from(args: argparse.Namespace) -> Config:
         "policy": args.policy, "locale": args.locale,
         "use_llm": (False if args.no_llm else None),
         "critic": (False if args.no_critic else None),
+        "scrub_fenced": getattr(args, "scrub_fenced", None),
     }
     return Config.load(path=args.config,
                        overrides={k: v for k, v in overrides.items()
@@ -70,7 +71,7 @@ def _config_from(args: argparse.Namespace) -> Config:
 def cmd_scrub(args: argparse.Namespace) -> int:
     text = _read(args.infile)
     config = _config_from(args)
-    segs = formats.segment(text, args.format)
+    segs = formats.segment(text, args.format, scrub_fenced=config.scrub_fenced)
     result = deidentify(text, config, segments=segs)
 
     out = args.out or _default_out(args.infile)
@@ -142,7 +143,7 @@ def cmd_clip(args: argparse.Namespace) -> int:
         return EXIT_OK
 
     config = _config_from(args)
-    segs = formats.segment(text, args.format)
+    segs = formats.segment(text, args.format, scrub_fenced=config.scrub_fenced)
     result = deidentify(text, config, segments=segs)
     clipboard.write_clipboard(result.text)
     if not args.one_way:
@@ -213,6 +214,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--report", help="把完整风险报告写到此路径")
     s.add_argument("--format", choices=formats.FORMATS, default=formats.AUTO,
                    help="plain / markdown(保护 ``` 代码块) / auto(默认)")
+    s.add_argument("--scrub-fenced", action="store_true",
+                   help="同时脱敏 ``` 代码块内部的代码/数据")
     s.add_argument("--policy", choices=POLICIES, help="脱敏力度，默认 balanced")
     s.add_argument("--locale", help="zh(默认) / en：正则集与 prompt 语言")
     s.add_argument("--no-llm", action="store_true", help="仅正则、不调模型（离线兜底）")
@@ -235,6 +238,8 @@ def build_parser() -> argparse.ArgumentParser:
                    help="反向：用映射把剪贴板里的代号还原成真实身份")
     c.add_argument("--map", help=f"映射路径（默认 {DEFAULT_CLIP_MAP}）")
     c.add_argument("--format", choices=formats.FORMATS, default=formats.AUTO)
+    c.add_argument("--scrub-fenced", action="store_true",
+                   help="同时脱敏 ``` 代码块内部的代码/数据")
     c.add_argument("--policy", choices=POLICIES, help="脱敏力度，默认 balanced")
     c.add_argument("--locale", help="zh(默认) / en")
     c.add_argument("--no-llm", action="store_true", help="仅正则、不调模型")
