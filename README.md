@@ -1,5 +1,7 @@
 # vault-engine
 
+**English** · [简体中文](README.zh-CN.md)
+
 **A local-LLM privacy layer for anything you paste into a cloud model.**
 
 Strip the identities out of your text *before* it reaches ChatGPT / Claude /
