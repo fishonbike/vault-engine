@@ -203,8 +203,21 @@ vault-engine scrub notes.txt --model qwen3.6:35b-a3b  # any local model
 vault-engine scrub notes.txt --provider null          # offline, regex only
 ```
 
+### Using LM Studio or OpenAI-Compatible APIs
+
+The `openai-compat` provider works with any OpenAI-compatible API, including local servers like LM Studio.
+
+```bash
+# Example: Use LM Studio's local OpenAI-compatible server
+# (Caveat: raw text leaves vault-engine and is sent to the endpoint)
+vault-engine scrub notes.txt \
+  --provider openai-compat \
+  --endpoint http://localhost:1234/v1 \
+  --model "meta-llama-3-8b-instruct"
+```
+
 Built-in providers: `ollama` (default), `openai-compat` (any OpenAI-style
-endpoint — opt-in; ⚠️ sends raw text to that endpoint), `null` (offline). Add
+endpoint — opt-in; sends raw text to that endpoint), `null` (offline). Add
 your own by implementing one method (`complete`) and registering it.
 
 ## ⚠️ Security model — read this
