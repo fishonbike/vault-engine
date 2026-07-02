@@ -88,11 +88,15 @@ number, a license plate). Reproduce:
 |---|---|---|---|---|---|---|---|---|
 | regex only | 0% | 0% | 0% | 0% | 69% | 33% | **13%** | 0% |
 | Microsoft Presidio (en/zh `lg`) | 78% | 59% | 80% | 33% | 38% | 0% | **61%** | 4% |
-| **vault-engine (qwen3.6:27b)** | 100% | 100% | 100% | 100% | 100% | 100% | **100%** | 0% |
+| vault-engine (qwen2.5:7b, 4.7 GB) | 100% | 100% | 100% | 100% | 100% | 100% | **100%** | 2% |
+| vault-engine (qwen3.5:9b, 6.6 GB) | 100% | 94% | 100% | 100% | 100% | 100% | **99%** | 0% |
+| **vault-engine (qwen3.6:27b, 17 GB)** | 100% | 100% | 100% | 100% | 100% | 100% | **100%** | 0% |
 
-Same set where Presidio's NER scores 61%, the local LLM clears 100% — gap widest
-on codenames, @handles, IDs, and Chinese names/orgs. Trade-off is speed: Presidio
-~6s, the LLM ~25s/doc.
+Same set where Presidio's NER scores 61%, local LLMs clear ~100% — gap widest on
+codenames, @handles, IDs, and Chinese names/orgs. **Detection doesn't need a big
+model**: a 4.7 GB `qwen2.5:7b` matches the 27b's recall at ~4 s/doc (vs ~25 s/doc),
+so an ordinary laptop is enough. Presidio stays far faster (~0.4 s/doc) where its
+coverage suffices.
 <!-- BENCHMARK:END -->
 
 The point isn't a leaderboard — it's the **shape**: pattern-only redaction can't
